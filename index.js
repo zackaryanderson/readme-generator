@@ -19,7 +19,43 @@ const promptUser = () => {
                     return false;
                 }
             }
-        }
+        },
+        {
+            type: 'input',
+            name: 'description',
+            message: 'Enter a description of your project? (Required)',
+            validate: nameInput => {
+                if (nameInput){
+                    return true;
+                } else {
+                    console.log('Please enter a description');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'checkbox',
+            name: 'license',
+            message: 'What license does your project use? (Required)',
+            choices: ['MIT','GNU AGPLv3','Mozilla Public License 2.0','Apache License 2.0']
+        },
+        {
+            type: 'confirm',
+            name: 'confirmInstallation',
+            message: 'Would you like to include a description of how to install your project?',
+            default: true
+        },
+        {
+            type: 'input',
+            name: 'installation',
+            message: 'Enter the steps required to install your project:',
+            when: ({ confirmInstallation }) => {
+                if (confirmInstallation) {
+                    return true;
+                } else {
+                    return false;
+                }
+        },
     ])
 };
 

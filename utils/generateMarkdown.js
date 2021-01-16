@@ -38,7 +38,7 @@ const renderLicenseSection = (license) => {
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(templateData) {
   //destructure template data from questions
-  const { title, license, questions, headers, installation, usage, credits, badges, contributing } = templateData;
+  const { title, license, questions, installation, usage, credits, badges, contributing } = templateData;
 
   return `
   # ${title}
@@ -50,7 +50,7 @@ function generateMarkdown(templateData) {
 
   ## Table of Contents
 
-  ${generateTableOfContents(headers)}
+  ${generateTableOfContents(templateData)}
 
   ${generateInstallation(installation)}
 
