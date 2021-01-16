@@ -1,19 +1,77 @@
+const generateContributing = require('./generateContributing.js');
+
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-function renderLicenseBadge(license) {}
+renderLicenseBadge = (license) => {
+  if (!license){
+    return '';
+  }
+
+  return `
+  https://img.shields.io/badge/license-${license}-brightgreen
+  `;
+}
 
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
-function renderLicenseLink(license) {}
+renderLicenseLink = (license) => { 
+  if (!license){
+    return '';
+  }
+}
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(license) {}
+renderLicenseSection = (license) => { 
+  if (!license){
+    return '';
+  }
+}
+
+//TODO: create a function to generate the table of contents
+//TODO: create a function to generate installation guidelines
+//TODO: create a function to generate usage section
+//TODO: create a function to generate the questions section
+//TODO: create a function to generate the credits section
+//TODO: creata a function to generate the badges section
 
 // TODO: Create a function to generate markdown for README
-function generateMarkdown(data) {
-  return `# ${data.title}
+function generateMarkdown(templateData) {
+  //destructure template data from questions
+  const { title, license, questions, headers, installation, usage, credits, badges, contributing } = templateData;
 
+  return `
+  # ${title}
+
+  ## Description
+
+  ${description}
+  ${renderLicenseBadge(license)}
+
+  ## Table of Contents
+
+  ${generateTableOfContents(headers)}
+
+  ${generateInstallation(installation)}
+
+  ${generateUsage(usage)}
+
+  ${renderLicenseSection(license)}
+
+  ${renderLicenseLink(license)}
+
+  ${generateQuestions(questions)}
+
+  ${generateCredits(credits)}
+
+  ${generateBadges(badges)}
+
+  ${generateContributing(contributing)}
+
+  ### MADE WITH README GENERATOR
+  ![Developer Tag](https://img.shields.io/badge/Developed%20By%3A-Zack%20Anderson-orange)
+  ![GitHub followers](https://img.shields.io/github/followers/zackaryanderson?style=social)
+        
 `;
 }
 
