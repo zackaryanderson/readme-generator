@@ -76,28 +76,28 @@ const renderLicenseSection = (license, githubUsername) => {
 const generateTableOfContents = (description, license, questions, installation, collaborators, confirmBadges,tests,usage) => {
   let table = ``;
   if (description) {
-    table += `* [Description](#description)`
+    table += `* [Description](#description)  \n`
   }
   if (installation) {
-    table += `* [Installation](#installation)`
+    table += `  * [Installation](#installation)  \n`
   }
   if (usage) {
-    table += `* [Usage](#usage)`
+    table += `  * [Usage](#usage)  \n`
   }
   if (questions) {
-    table += `* [Questions](#questions)`
+    table += `  * [Questions](#questions)  \n`
   }
   if (collaborators) {
-    table += `* [Credits](#credits)`
+    table += `  * [Credits](#credits)  \n`
   }
   if (confirmBadges) {
-    table += `* [Badges](#badges)`
+    table += `  * [Badges](#badges)  \n`
   }
   if (tests) {
-    table += `* [Tests](#tests)`
+    table += `  * [Tests](#tests)  \n`
   }
   if (license) {
-    table += `* [License](#license)`
+    table += `  * [License](#license)  \n`
   }
   return table
 };
@@ -209,7 +209,7 @@ function generateMarkdown(templateData) {
   ${generateQuestions(questions, questionsDescription, githubUsername)}
 
   ${generateCredits(collaborators)}
-  
+
   ${generateTests(tests)}
 
   ${generateBadges(confirmBadges, githubUsername, githubRepo)}

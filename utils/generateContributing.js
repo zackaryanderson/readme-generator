@@ -1,4 +1,7 @@
-generateContributing = () => {
+generateContributing = (contributing) => {
+  if (!contributing){
+    return ''
+  }
     return `
     # Contributor Covenant Code of Conduct
 
