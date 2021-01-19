@@ -73,15 +73,33 @@ const renderLicenseSection = (license, githubUsername) => {
 };
 
 //function to generate the table of contents
-const generateTableOfContents = (description, license, questions, installation, collaborators, confirmBadges,tests) => {
-
-  let existingVariables = [description, license, questions, installation, collaborators, confirmBadges,tests];
-  existingVariables = existingVariables.filter(Boolean);
-  existingVariables.forEach(item => {
-    // item[0].toUpperCase();
-    return `* [${item}](#${item})`;
-  });
-  return existingVariables;
+const generateTableOfContents = (description, license, questions, installation, collaborators, confirmBadges,tests,usage) => {
+  let table = ``;
+  if (description) {
+    table += `* [Description](#description)`
+  }
+  if (installation) {
+    table += `* [Installation](#installation)`
+  }
+  if (usage) {
+    table += `* [Usage](#usage)`
+  }
+  if (questions) {
+    table += `* [Questions](#questions)`
+  }
+  if (collaborators) {
+    table += `* [Credits](#credits)`
+  }
+  if (confirmBadges) {
+    table += `* [Badges](#badges)`
+  }
+  if (tests) {
+    table += `* [Tests](#tests)`
+  }
+  if (license) {
+    table += `* [License](#license)`
+  }
+  return table
 };
 
 //function to generate installation guidelines
@@ -155,6 +173,17 @@ const generateBadges = (confirmBadges, githubUsername, githubRepo) => {
   `;
 };
 
+//generate tests
+const generateTests = tests => {
+  if (!tests){
+    return '';
+  }
+  return `
+  ## Tests
+  - ${tests}
+  `;
+};
+
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(templateData) {
   //destructure template data from questions
@@ -180,6 +209,8 @@ function generateMarkdown(templateData) {
   ${generateQuestions(questions, questionsDescription, githubUsername)}
 
   ${generateCredits(collaborators)}
+  
+  ${generateTests(tests)}
 
   ${generateBadges(confirmBadges, githubUsername, githubRepo)}
 
