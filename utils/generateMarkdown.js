@@ -2,10 +2,11 @@ const generateContributing = require('./generateContributing.js');
 
 //create license badge
 const renderLicenseBadge = (license) => {
+  // return blank if not required
   if (!license) {
     return '';
   }
-
+  //return badge if there is a license
   return `
   ![License Badge](https://img.shields.io/badge/license-${license}-brightgreen)
   `;
@@ -16,6 +17,7 @@ const renderLicenseSection = (license, githubUsername) => {
   if (!license) {
     return '';
   }
+  //return the corresponding license information
   else if (license === 'MIT') {
     return `
   ## License
@@ -74,7 +76,9 @@ const renderLicenseSection = (license, githubUsername) => {
 
 //function to generate the table of contents
 const generateTableOfContents = (description, license, questions, installation, collaborators, confirmBadges,tests,usage) => {
+  //establish blank block of code to be added to
   let table = ``;
+  //go through list of all items and add them if they are required
   if (description) {
     table += `* [Description](#description)  \n`
   }
@@ -107,6 +111,7 @@ const generateInstallation = (installation) => {
   if (!installation){
     return '';
   }
+  //add installation instructions if the are declared
   return `
   ## Installation
     
@@ -120,6 +125,7 @@ const generateUsage = usage => {
   if (!usage){
     return '';
   }
+  //add usage terms if they are specified
   return `
   ## Usage
     
@@ -133,6 +139,7 @@ const generateQuestions = (questions, questionsDescription, githubUsername) => {
   if (!questions){
     return '';
   }
+  //add questions block if it is specified
   return `
   ## Questions
     
@@ -151,6 +158,7 @@ const generateCredits = credits => {
   if (!credits){
     return '';
   }
+  //add credits if chosen
   return `
   ## Credits
   ### Project Collaborators
@@ -163,6 +171,7 @@ const generateBadges = (confirmBadges, githubUsername, githubRepo) => {
   if (!confirmBadges){
     return '';
   }
+  //create badges if they are desired
   return `
   ## Badges
 
@@ -178,18 +187,19 @@ const generateTests = tests => {
   if (!tests){
     return '';
   }
+  //add tests if they are declared
   return `
   ## Tests
   - ${tests}
   `;
 };
 
-// TODO: Create a function to generate markdown for README
+//function to generate markdown for README
 function generateMarkdown(templateData) {
   //destructure template data from questions
-  // const { title, license, questions, installation, usage, credits, badges, contributing } = templateData;
   const { title, description, githubRepo, githubUsername, license, questions, questionsDescription, installation, collaborators, confirmBadges, tests, usage, contributing } = templateData;
 
+  //add all requested information to the readme if it is specified
   return `
   # ${title}
 
@@ -225,31 +235,6 @@ function generateMarkdown(templateData) {
 `;
 }
 
+//export file to be used elsewhere
 module.exports = generateMarkdown;
 
-
-//ask for title, description, installation(optional), usage (optional), credits(optional), software used, questions section, license, badges, features(optional), tests(optional)
-// *(optional) represents that the user can elect to add these sections to their README by answering yes or no to a question prompt.
-//generate a table of contents based on headers
-//Pull data for license from web and display in readme and also display badge on top right for easy observation
-
-
-//questions section questions: Username, email, instructions with how to reach out with other questions.
-
-//general section questions: Section header (such as ...usage), information to include with it
-
-//badges to include:
-//last commit from activity
-//commit activity from activity
-//repo file count from size
-//github followers badge inside questions section from social
-//github issues from issue tracking
-//github branch checks state from build
-//github top language from analysis
-//github language count from analysis
-
-//license badge:
-//https://img.shields.io/badge/license-{license-here}-brightgreen
-
-//personal badge:
-//https://img.shields.io/badge/Developed%20By%3A-Zack%20Anderson-orange

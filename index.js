@@ -182,7 +182,7 @@ const promptUser = () => {
     ])
 };
 
-
+//function to write a new file for the markdown
 const writeFile = fileContent => {
     return new Promise((resolve,reject) => {
         fs.writeFile('./dist/README.md',fileContent, err => {
@@ -198,6 +198,7 @@ const writeFile = fileContent => {
     });
 };
 
+//initialize app and write file, return error if there is one
 promptUser()
 .then(answers => generateMarkdown(answers))
 .then(markdown => writeFile(markdown))
@@ -206,11 +207,4 @@ promptUser()
 }).catch(err => {
     console.log(err);
 });
-// // TODO: Create a function to write README file
-// function writeToFile(fileName, data) {}
 
-// // TODO: Create a function to initialize app
-// function init() {}
-
-// // Function call to initialize app
-// init();
