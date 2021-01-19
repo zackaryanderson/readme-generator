@@ -173,6 +173,12 @@ const promptUser = () => {
                 }
             }
         },
+        {
+            type: 'confirm',
+            name: 'contributing',
+            message: 'Would you like to include a guideline for contributing to your project?',
+            default: false
+        },
     ])
 };
 
@@ -194,7 +200,12 @@ const writeFile = fileContent => {
 
 promptUser()
 .then(answers => generateMarkdown(answers))
-.then(markdown => writeFile(markdown));
+.then(markdown => writeFile(markdown))
+.then(writeFileResponse => {
+    console.log(writeFileResponse.message)
+}).catch(err => {
+    console.log(err);
+});
 // // TODO: Create a function to write README file
 // function writeToFile(fileName, data) {}
 

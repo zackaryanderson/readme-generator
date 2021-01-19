@@ -7,7 +7,7 @@ const renderLicenseBadge = (license) => {
   }
 
   return `
-  https://img.shields.io/badge/license-${license}-brightgreen
+  ![License Badge](https://img.shields.io/badge/license-${license}-brightgreen)
   `;
 }
 
@@ -18,64 +18,67 @@ const renderLicenseSection = (license, githubUsername) => {
   }
   else if (license === 'MIT') {
     return `
-    MIT License
+  ## License
+  MIT License
 
-    Copyright (c) ${new Date().getFullYear()} ${githubUsername}
+  Copyright (c) ${new Date().getFullYear()} ${githubUsername}
     
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell    copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
     
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
     
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
     `;
   }
   else if (license === 'Unlicense') {
     return `
-    This is free and unencumbered software released into the public domain.
+  ## License
+  This is free and unencumbered software released into the public domain.
 
     Anyone is free to copy, modify, publish, use, compile, sell, or
-    distribute this software, either in source code form or as a compiled
-    binary, for any purpose, commercial or non-commercial, and by any
-    means.
+  distribute this software, either in source code form or as a compiled
+  binary, for any purpose, commercial or non-commercial, and by any
+  means.
 
     In jurisdictions that recognize copyright laws, the author or authors
-    of this software dedicate any and all copyright interest in the
-    software to the public domain. We make this dedication for the benefit
-    of the public at large and to the detriment of our heirs and
-    successors. We intend this dedication to be an overt act of
-    relinquishment in perpetuity of all present and future rights to this
-    software under copyright law.
+  of this software dedicate any and all copyright interest in the
+  software to the public domain. We make this dedication for the benefit
+  of the public at large and to the detriment of our heirs and
+  successors. We intend this dedication to be an overt act of
+  relinquishment in perpetuity of all present and future rights to this
+  software under copyright law.
 
-      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-    OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-    OTHER DEALINGS IN THE SOFTWARE.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+  OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+  ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+  OTHER DEALINGS IN THE SOFTWARE.
 
-    For more information, please refer to <https://unlicense.org>
+  For more information, please refer to <https://unlicense.org>
     `;
   }
 };
 
 //function to generate the table of contents
-const generateTableOfContents = (description, license, questions, installation, collaborators, badges,tests) => {
-  let existingVariables = generateTableOfContents.filter(Boolean);
+const generateTableOfContents = (description, license, questions, installation, collaborators, confirmBadges,tests) => {
+
+  let existingVariables = [description, license, questions, installation, collaborators, confirmBadges,tests];
+  existingVariables = existingVariables.filter(Boolean);
   existingVariables.forEach(item => {
-    item[0].toUpperCase();
+    // item[0].toUpperCase();
     return `* [${item}](#${item})`;
   });
   return existingVariables;
@@ -87,11 +90,11 @@ const generateInstallation = (installation) => {
     return '';
   }
   return `
-    ## Installation
+  ## Installation
     
-    ### Follow these instructions to install the project
-    - ${installation}
-    `;
+  ### Follow these instructions to install the project
+  - ${installation}
+  `;
 };
 
 //function to generate usage section
@@ -120,7 +123,7 @@ const generateQuestions = (questions, questionsDescription, githubUsername) => {
   - ${githubUsername}
   #### Email:
   - _${questions}_
-  Instructions:
+  ### Instructions:
   -${questionsDescription}
   `;
 };
@@ -138,8 +141,8 @@ const generateCredits = credits => {
 };
 
 //TODO: creata a function to generate the badges section
-const generateBadges = (badges, githubUsername, githubRepo) => {
-  if (!badges){
+const generateBadges = (confirmBadges, githubUsername, githubRepo) => {
+  if (!confirmBadges){
     return '';
   }
   return `
@@ -156,14 +159,14 @@ const generateBadges = (badges, githubUsername, githubRepo) => {
 function generateMarkdown(templateData) {
   //destructure template data from questions
   // const { title, license, questions, installation, usage, credits, badges, contributing } = templateData;
-  const { title, description, githubRepo, githubUsername, license, questions, questionsDescription, installation, collaborators, badges, tests } = templateData;
+  const { title, description, githubRepo, githubUsername, license, questions, questionsDescription, installation, collaborators, confirmBadges, tests, usage, contributing } = templateData;
 
   return `
   # ${title}
 
   ## Table of Contents
 
-  ${generateTableOfContents(description, license, questions, installation, collaborators, badges,tests)}
+  ${generateTableOfContents(description, license, questions, installation, collaborators, confirmBadges,tests)}
 
   ## Description
 
@@ -176,11 +179,11 @@ function generateMarkdown(templateData) {
 
   ${generateQuestions(questions, questionsDescription, githubUsername)}
 
-  ${generateCredits(credits)}
+  ${generateCredits(collaborators)}
 
-  ${generateBadges(badges, githubUsername, githubRepo)}
+  ${generateBadges(confirmBadges, githubUsername, githubRepo)}
 
-  ${renderLicenseSection(license)}
+  ${renderLicenseSection(license,githubUsername)}
 
   ${generateContributing(contributing)}
 
